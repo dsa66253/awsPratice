@@ -1,13 +1,50 @@
+import { HttpLink, ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { split } from 'apollo-link';
+import { WebSocketLink } from 'apollo-link-ws';
+import { getMainDefinition } from 'apollo-utilities';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import App from './App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import KitchenApp from './containers/kitchen-app/kitchen-app';
+
+// Create an http link:
+const httpLink = new HttpLink({
+  // uri: 'https://2c37-140-112-26-145.ngrok.io/graphql',
+  uri: 'http://localhost:80/graphql'
+});
+
+// Create a WebSocket link:
+const wsLink = new WebSocketLink({
+  // uri: `ws://2c37-140-112-26-145.ngrok.io/graphql`,
+  uri: 'ws://localhost:80/graphql',
+  options: { reconnect: true },
+});
+
+const link = split(
+  // split based on operation type
+  ({ query }) => {
+    const definition = getMainDefinition(query);
+    return (
+      definition.kind === 'OperationDefinition' &&
+      definition.operation === 'subscription'
+    );
+  },
+  wsLink,
+  httpLink,
+);
+
+const client = new ApolloClient({
+  link,
+  cache: new InMemoryCache().restore({}),
+});
+
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <CounterApp /> */}
-    <KitchenApp/>
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
