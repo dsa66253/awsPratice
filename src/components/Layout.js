@@ -5,7 +5,7 @@ import { format } from "date-fns";
 import React from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import { primary, opposite, oppositeLight, secondary } from "../constants/styles";
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -45,8 +45,12 @@ const useStyles = makeStyles((theme) => {
             background: 'linear-gradient(45deg, #FE688B, #FF8E53)'
         },
         toolbar: theme.mixins.toolbar,
-        date: {
-            flexGrow: 1
+        quote: {
+            flexGrow: 1,
+            fontSize: 20,
+        },
+        user: {
+            fontSize: 20,
         }
     }
 });
@@ -82,11 +86,11 @@ const Layout = ({ children }) => {
                 elevation={0}
             >
                 <Toolbar>
-                    <Typography className={classes.date}>
-                        Today is the {format(new Date(), 'do MMMM Y')}
+                    <Typography className={classes.quote}>
+                        顧客永遠是對的，就算是大爛客也一樣
                     </Typography>
-                    <Typography>
-                        User
+                    <Typography className={classes.user}>
+                        ＯＯ餐廳
                     </Typography>
                 </Toolbar>
             </AppBar>

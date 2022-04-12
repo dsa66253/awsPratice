@@ -1,5 +1,6 @@
 import { Grid, Card, makeStyles } from "@material-ui/core";
 import CounterItemsCard from "../components/CounterItemsCard";
+import { primary } from "../constants/styles";
 import Timer from "./Timer";
 
 
@@ -13,7 +14,8 @@ const useStyles = makeStyles({
         minHeight: '10vh',
         fontSize: 20,
         fontWeight: 'bold',
-        borderTop: '1px solid'
+        borderTop: '1px solid',
+        // background: primary,
     },
     itemsCard: {
         minHeight: '15%',
@@ -22,7 +24,8 @@ const useStyles = makeStyles({
         alignItems: 'center',
         justifyContent: 'start',
         padding: '10px',
-        borderTop: '1px solid'
+        borderTop: '1px solid',
+        // background: '#02C874',
     }
 });
 
@@ -48,6 +51,9 @@ const CounterOrderList = ({ order }) => {
             </Card>
             <Card className={classes.infoCard}>
                 <Timer time={order.time} />
+            </Card>
+            <Card className={classes.infoCard}>
+                備註
             </Card>
         </Grid>
     );

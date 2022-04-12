@@ -1,5 +1,6 @@
 import KitchenItemCard from "../containers/KitchenItemCard";
 import { Card, Grid, makeStyles } from "@material-ui/core";
+import { opposite } from "../constants/styles";
 
 const useStyles = makeStyles({
     infoCard: {
@@ -10,6 +11,10 @@ const useStyles = makeStyles({
         justifyContent: 'center',
         fontSize: 20,
         fontWeight: 'bold',
+    },
+    tableNo: {
+        fontSize: 20,
+        fontWeight: 'bold'
     }
 });
 
@@ -19,19 +24,21 @@ const KitchenOrderList = ({ order }) => {
     const classes = useStyles();
 
     return (
-        <Grid container direction="row">
-            {/* 
-            <div className={classes.infoCard}>
-                {order.id} /
+        <Grid container >
+            <div className={classes.tableNo}>
+                {order.tableNo} 桌
             </div>
-            <div className={classes.infoCard}>
+            <Grid container direction="row">
+                {/* <div className={classes.infoCard}>
                 {order.tableNo} 桌
             </div> */}
-            {order.items.map(item => (
-                <KitchenItemCard key={item.id} item={item} />
-            ))}
+                {order.items.map(item => (
+                    <KitchenItemCard key={item.id} item={item} />
+                ))}
 
+            </Grid>
         </Grid>
+
     );
 }
 

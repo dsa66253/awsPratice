@@ -5,16 +5,32 @@ import { opposite, primary, secondary } from "../constants/styles";
 import { nextStatus, statusToColor } from "../utils/transfer";
 
 const useStyles = makeStyles({
-    status: {
-        // border: (item) => {
-        //     if (item.price > 50) {
-        //         return '2px solid black';
-        //     }
-        // },
-        backgroundColor: (item) => {
-            return statusToColor[item.status];
-        }
-        // color: opposite
+    default: {
+        display: 'block',
+        width: '15vw',
+        background: opposite,
+    },
+    raw: {
+        display: 'block',
+        width: '15vw',
+        background: '#FF5151',
+    },
+    running: {
+        display: 'block',
+        width: '15vw',
+        background: '#FFE66F',
+    },
+    done: {
+        display: 'block',
+        width: '15vw',
+        background: '#02C874',
+    },
+    header: {
+        fontSize: 20
+    },
+    content: {
+        background: '#FFFFFF',
+        margin: 5,
     }
 });
 
@@ -29,22 +45,23 @@ const KitchenItemCard = ({ item }) => {
         // TODO: api connect
         // await 
         setStatus(nextStatus(status, sequential));
+        cardClassName = statusToStyles(status);
     }
+
+    const statusToStyles = () => {
+        if (status === "RAW") return classes.raw;
+        if (status === "RUNNING") return classes.running;
+        if (status === "DONE") return classes.done;
+        return classes.default;
+    }
+    let cardClassName = statusToStyles(status);
 
 
     return (
-        <Card className={classes.status}>
-            <CardHeader
-                action={
-                    <IconButton onClick={() => updateStatus(false)}>
-                        <ArrowBack />
-                    </IconButton>
-                }
-                title={`${item.name} * ${item.quantity}`}
-            />
-            <CardContent onClick={() => updateStatus(true)}>
-                {item.note}
-            </CardContent>
+
+        <Card className={cardClassName} onClick={updateStatus}>
+            <CardHeader title={`${item.name} * ${item.quantity}`}></CardHeader>
+            <CardContent className={classes.content}>{item.note ?? "無"}</CardContent>
         </Card>
     );
 }
