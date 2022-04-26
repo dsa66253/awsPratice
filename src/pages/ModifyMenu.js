@@ -14,7 +14,7 @@ import TextField from '@mui/material/TextField'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 // 根據餐點數量產生對應數量的cards
-const cards = [1, 2, 3, 4]; //數字應替換成ItemID(餐點ID)
+const cards = [1, 2, 3, 4, 5, 6, 7]; //數字應替換成ItemID(餐點ID)
 const add = [1]; //新增餐點那格
 
 cards[1] = '001';
@@ -39,14 +39,14 @@ export default function Album() {
                 >
                   <CardMedia
                     component="img"
-                    image="https://source.unsplash.com/random" /*此處放入餐點照片連結*/
+                    image="https://aot-wpengine.netdna-ssl.com/wp-content/uploads/2013/07/east-african-food.jpg" /*此處放入餐點照片連結*/
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
                       此處串接餐點名稱
                     </Typography>
                     <Typography>
-                      此處串接餐點簡介.
+                      此處串接餐點簡介
                     </Typography>
                   </CardContent>
                   <CardActions>
@@ -55,22 +55,31 @@ export default function Album() {
                 </Card>
               </Grid>
             ))}
+            <Grid container spacing={4}></Grid>
             {add.map((add) => (
               <Grid item key={add} xs={12} sm={6} md={4}>
                 <Card
-                  sx={{ height: '100%', display: 'flex', align: 'center', flexDirection: 'column' }}
+                  sx={{ height: '100%', display: 'flex', flexDirection: 'column'}}
                 >
-                  <ImageUpload cardName="Input Image" width= "100%" imageGallery={galleryImageList}/>
-                  <CardContent sx={{ flexGrow: 1 }} align="center">
-                    <TextField id="ItemName" label="輸入餐點名稱"/>
-                    <TextField id="ItemDescription" label="輸入餐點描述"/>
+                  <CardContent sx={{ flexGrow: 1 }} align="center" justify="center">
+                    <ImageUpload cardName="Input Image" width= "100%" imageGallery={galleryImageList} justify='center' align='center'/>
                   </CardContent>
+
+                  <CardContent sx={{ flexGrow: 1 }} align="center" justify="center">
+                    <TextField id="ItemName" label="輸入餐點名稱"/>
+                  </CardContent>
+
+                  <CardContent sx={{ flexGrow: 1 }} align="center" justify="center" height="50%">
+                    <TextField id="ItemDescription" label="輸入餐點描述" multiline={true} rows={5}/>
+                  </CardContent>
+                  
                   <CardActions>
                     <Button size="medium">新增餐點（更新至資料庫）</Button>
                   </CardActions>
                 </Card>
               </Grid>
             ))}
+            
           </Grid>
         </Container>
       </main>

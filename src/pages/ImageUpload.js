@@ -147,12 +147,12 @@ class ImageUploadCard extends React.Component {
                 <AddPhotoAlternateIcon />
               </Fab>
             </label>
-            <Fab className={classes.button} onClick={this.handleSearchClick}>
+            {/* <Fab className={classes.button} onClick={this.handleSearchClick}>  搜尋按鈕
               <SearchIcon />
-            </Fab>
-            <Fab className={classes.button} onClick={this.handleGalleryClick}>
+            </Fab> */}
+            {/* <Fab className={classes.button} onClick={this.handleGalleryClick}>  相簿按鈕
               <CollectionsIcon />
-            </Fab>
+            </Fab> */}
           </Grid>
         </CardContent>
       </React.Fragment>
