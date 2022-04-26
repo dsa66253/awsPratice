@@ -72,11 +72,11 @@ const Layout = ({ children }) => {
             icon: <RestaurantSharp />,
             path: '/counter'
         },
-        // {
-        //     text: '改菜單',
-        //     icon: <RestaurantMenuSharp />,
-        //     path: '/modify-menu'
-        // }
+        {
+            text: '改菜單',
+            icon: <RestaurantMenuSharp />,
+            path: '/modify-menu'
+        }
     ];
 
     return (
