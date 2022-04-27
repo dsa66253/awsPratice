@@ -11,13 +11,13 @@ import reportWebVitals from './reportWebVitals';
 // Create an http link:
 const httpLink = new HttpLink({
   // uri: 'https://2c37-140-112-26-145.ngrok.io/graphql',
-  uri: 'http://localhost:80/graphql'
+  uri: 'https://api.eatba.tk/graphql'
 });
 
 // Create a WebSocket link:
 const wsLink = new WebSocketLink({
   // uri: `ws://2c37-140-112-26-145.ngrok.io/graphql`,
-  uri: 'ws://localhost:80/graphql',
+  uri: 'ws://api.eatbba.tk/graphql',
   options: { reconnect: true },
 });
 
