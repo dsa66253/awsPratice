@@ -100,7 +100,7 @@ class ImageUploadCard extends React.Component {
     const reader = new FileReader();
     var url = reader.readAsDataURL(file);
 
-    reader.onloadend = function(e) {
+    reader.onloadend = function (e) {
       this.setState({
         selectedFile: [reader.result]
       });
@@ -165,7 +165,7 @@ class ImageUploadCard extends React.Component {
     var reader = new FileReader();
     var url = reader.readAsDataURL(file);
 
-    reader.onloadend = function(e) {
+    reader.onloadend = function (e) {
       this.setState({
         selectedFile: [reader.result]
       });
@@ -309,11 +309,11 @@ class ImageUploadCard extends React.Component {
       <React.Fragment>
         <div className={classes.root}>
           <Card className={this.props.cardName}>
-            {(this.state.mainState == "initial" && this.renderInitialState()) ||
-              (this.state.mainState == "search" && this.renderSearchState()) ||
-              (this.state.mainState == "gallery" &&
+            {(this.state.mainState === "initial" && this.renderInitialState()) ||
+              (this.state.mainState === "search" && this.renderSearchState()) ||
+              (this.state.mainState === "gallery" &&
                 this.renderGalleryState()) ||
-              (this.state.mainState == "uploaded" &&
+              (this.state.mainState === "uploaded" &&
                 this.renderUploadedState())}
           </Card>
         </div>

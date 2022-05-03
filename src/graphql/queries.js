@@ -18,3 +18,14 @@ query Query{
   }
 }
 `;
+
+export const QUERY_ITEMS = gql`
+query Items($restaurantId: ID!) {
+  items(restaurantID: $restaurantId) {
+    id
+    name
+    price
+    description
+    img
+  }
+}`;
