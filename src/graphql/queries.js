@@ -1,20 +1,21 @@
 import { gql } from '@apollo/client';
 
 export const QUERY_ORDERS = gql`
-query Query{
-  queryOrders {
-    id
-    tableNo
-    time
-    totalPrice
+query TodayOrders($restaurantId: ID!) {
+  todayOrders(restaurantID: $restaurantId) {
     items {
       id
       name
-      quantity
       price
-      note
-      status
+      orderItemInfo {
+        quantity
+        note
+      }
     }
+    tableNo
+    totalPrice
+    time
+    id
   }
 }
 `;

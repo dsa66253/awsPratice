@@ -40,8 +40,6 @@ export default function Album() {
   const add = [1]; //新增餐點那格
 
 
-
-
   if (loading) return <div>Loading...</div>
   if (error) return <div>Error ^U^</div>
 

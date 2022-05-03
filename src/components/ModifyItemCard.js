@@ -17,7 +17,7 @@ const ModifyItemCard = ({ item }) => {
         {
             name: item.name,
             price: item.price,
-            img: item.image
+            img: item.img
         }
     );
 
@@ -52,6 +52,7 @@ const ModifyItemCard = ({ item }) => {
     const needUpdate = () => {
         if (values.name !== item.name) return true;
         if (values.price !== item.price) return true;
+        if (values.img !== item.img) return true;
         return false;
     }
 
@@ -70,14 +71,14 @@ const ModifyItemCard = ({ item }) => {
                 </CardHeader>
                 <CardMedia
                     component="img"
-                    image="https://aot-wpengine.netdna-ssl.com/wp-content/uploads/2013/07/east-african-food.jpg" /*此處放入餐點照片連結*/
+                    image={values.img}
                 />
                 <CardContent sx={{ flexGrow: 1 }}>
                     <TextField variant="outlined" onChange={handleChange('name')} value={values.name} label="名稱" />
                 </CardContent>
-                {/* <CardContent sx={{ flexGrow: 1 }}>
-                    <TextField variant="outlined" onChange={handleChange('description')} value={values.description} label="簡介" />
-                </CardContent> */}
+                <CardContent sx={{ flexGrow: 1 }}>
+                    <TextField variant="outlined" onChange={handleChange('img')} value={values.img} label="圖片網址" />
+                </CardContent>
                 <CardContent>
                     <TextField type="number" variant="outlined" onChange={handleChange('price')} value={values.price} label="價格" />
                 </CardContent>
@@ -103,7 +104,7 @@ const ModifyItemCard = ({ item }) => {
                 </CardHeader>
                 <CardMedia
                     component="img"
-                    image="https://aot-wpengine.netdna-ssl.com/wp-content/uploads/2013/07/east-african-food.jpg" /*此處放入餐點照片連結*/
+                    image={item.img}
                 />
                 <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">

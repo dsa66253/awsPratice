@@ -6,23 +6,24 @@ import { QUERY_ORDERS } from "../graphql/queries";
 import { CREATE_ORDER, SUBSCRIPTION_ORDER } from "../graphql";
 
 const Counter = () => {
-    const { loading, error, data, subscribeToMore } = useQuery(QUERY_ORDERS);
+    const { loading, error, data, subscribeToMore } = useQuery(QUERY_ORDERS, { variables: { restaurantId: "s001" } });
     const [addOrder] = useMutation(CREATE_ORDER);
 
     useEffect(() => {
         try {
             subscribeToMore({
                 document: SUBSCRIPTION_ORDER,
+                variables: { restautantId: "s001" },
                 updateQuery: (prev, { subscriptionData }) => {
                     if (!subscriptionData.data) return prev;
                     const newOrder = subscriptionData.data;
 
                     console.log(newOrder);
-                    console.log(prev.queryOrders);
+                    console.log(prev.todayOrders);
 
                     return {
                         ...prev,
-                        queryOrders: [newOrder, ...prev.queryOrders],
+                        todayOrders: [newOrder, ...prev.todayOrders],
                     };
                 },
             });
@@ -65,7 +66,7 @@ const Counter = () => {
                 ) : error ? (
                     <p>Error ^U^</p>
                 ) : (
-                    data.queryOrders.map(order =>
+                    data.todayOrders.map(order =>
                     (<Grid item key={order.id}>
                         <CounterOrderList order={order} />
                     </Grid>))

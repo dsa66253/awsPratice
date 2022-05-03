@@ -24,12 +24,13 @@ const useStyles = makeStyles({
 
 const Kitchen = () => {
     const classes = useStyles();
-    const { loading, error, data, subscribeToMore } = useQuery(QUERY_ORDERS);
+    const { loading, error, data, subscribeToMore } = useQuery(QUERY_ORDERS, { variables: { restaurantId: "s001" } });
 
     useEffect(() => {
         try {
             subscribeToMore({
                 document: SUBSCRIPTION_ORDER,
+                variables: { restautantId: "s001" },
                 updateQuery: (prev, { subscriptionData }) => {
                     if (!subscriptionData.data) return prev;
                     const newOrder = subscriptionData.data;
@@ -56,8 +57,8 @@ const Kitchen = () => {
                 ) : error ? (
                     <p>Error ^U^</p>
                 ) : (
-                    data.queryOrders.map(order =>
-                        <Grid item>
+                    data.todayOrders.map(order =>
+                        <Grid key={order.id} item>
                             <KitchenOrderList order={order} />
                         </Grid>
                     )

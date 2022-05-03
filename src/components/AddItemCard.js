@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { Button, Card, CardActions, CardContent, Grid, TextField } from "@material-ui/core";
+import { Button, Card, CardActions, CardContent, CardMedia, Grid, TextField } from "@material-ui/core";
 import { useState } from "react";
 import { CREATE_ITEM } from "../graphql/mutations";
 import ImageUpload from "../pages/ImageUpload";
@@ -39,15 +39,19 @@ const AddItemCard = () => {
                 sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
             >
                 <CardContent sx={{ flexGrow: 1 }} align="center" justify="center">
-                    <ImageUpload cardName="Input Image" width="100%" imageGallery={galleryImageList} justify='center' align='center' />
+                    {/* <ImageUpload cardName="Input Image" width="100%" imageGallery={galleryImageList} justify='center' align='center' /> */}
+                    <CardMedia
+                        component="img"
+                        image={values.img}
+                    />
                 </CardContent>
 
                 <CardContent sx={{ flexGrow: 1 }}>
                     <TextField variant="outlined" onChange={handleChange('name')} value={values.name} label="名稱" />
                 </CardContent>
-                {/* <CardContent sx={{ flexGrow: 1 }}>
-                    <TextField variant="outlined" onChange={handleChange('description')} value={values.description} label="簡介" />
-                </CardContent> */}
+                <CardContent sx={{ flexGrow: 1 }}>
+                    <TextField variant="outlined" onChange={handleChange('img')} value={values.img} label="圖片網址" />
+                </CardContent>
                 <CardContent>
                     <TextField type="number" variant="outlined" onChange={handleChange('price')} value={values.price} label="價格" />
                 </CardContent>

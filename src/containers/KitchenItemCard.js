@@ -38,7 +38,7 @@ const KitchenItemCard = ({ item }) => {
 
 
     // const [status, setStatus] = useState(item.status);
-    const [status, setStatus] = useState(item.status);
+    const [status, setStatus] = useState('RAW');
     const classes = useStyles(item);
 
     const updateStatus = async (sequential) => {
@@ -57,11 +57,19 @@ const KitchenItemCard = ({ item }) => {
     let cardClassName = statusToStyles(status);
 
 
+    var quantity = 0;
+    var note = "無";
+    if (item.orderItemInfo) {
+        quantity = item.orderItemInfo.quantity;
+        note = item.orderItemInfo.note;
+    }
+
+
     return (
 
         <Card className={cardClassName} onClick={updateStatus}>
-            <CardHeader title={`${item.name} * ${item.quantity}`}></CardHeader>
-            <CardContent className={classes.content}>{item.note ?? "無"}</CardContent>
+            <CardHeader title={`${item.name} * ${quantity}`}></CardHeader>
+            <CardContent className={classes.content}>{note}</CardContent>
         </Card>
     );
 }
