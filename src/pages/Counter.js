@@ -9,28 +9,28 @@ const Counter = () => {
     const { loading, error, data, subscribeToMore } = useQuery(QUERY_ORDERS, { variables: { restaurantId: "s001" } });
     const [addOrder] = useMutation(CREATE_ORDER);
 
-    useEffect(() => {
-        try {
-            subscribeToMore({
-                document: SUBSCRIPTION_ORDER,
-                variables: { restautantId: "s001" },
-                updateQuery: (prev, { subscriptionData }) => {
-                    if (!subscriptionData.data) return prev;
-                    const newOrder = subscriptionData.data;
+    // useEffect(() => {
+    //     try {
+    //         subscribeToMore({
+    //             document: SUBSCRIPTION_ORDER,
+    //             variables: { restautantId: "s001" },
+    //             updateQuery: (prev, { subscriptionData }) => {
+    //                 if (!subscriptionData.data) return prev;
+    //                 const newOrder = subscriptionData.data;
 
-                    console.log(newOrder);
-                    console.log(prev.todayOrders);
+    //                 console.log(newOrder);
+    //                 console.log(prev.todayOrders);
 
-                    return {
-                        ...prev,
-                        todayOrders: [newOrder, ...prev.todayOrders],
-                    };
-                },
-            });
-        } catch (e) {
-            console.log(e);
-        }
-    }, [subscribeToMore]);
+    //                 return {
+    //                     ...prev,
+    //                     todayOrders: [newOrder, ...prev.todayOrders],
+    //                 };
+    //             },
+    //         });
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // }, [subscribeToMore]);
 
     const handleCreate = useCallback(
         (e) => {

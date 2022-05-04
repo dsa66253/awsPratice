@@ -26,28 +26,28 @@ const Kitchen = () => {
     const classes = useStyles();
     const { loading, error, data, subscribeToMore } = useQuery(QUERY_ORDERS, { variables: { restaurantId: "s001" } });
 
-    useEffect(() => {
-        try {
-            subscribeToMore({
-                document: SUBSCRIPTION_ORDER,
-                variables: { restautantId: "s001" },
-                updateQuery: (prev, { subscriptionData }) => {
-                    if (!subscriptionData.data) return prev;
-                    const newOrder = subscriptionData.data;
+    // useEffect(() => {
+    //     try {
+    //         subscribeToMore({
+    //             document: SUBSCRIPTION_ORDER,
+    //             variables: { restautantId: "s001" },
+    //             updateQuery: (prev, { subscriptionData }) => {
+    //                 if (!subscriptionData.data) return prev;
+    //                 const newOrder = subscriptionData.data;
 
-                    console.log(newOrder);
-                    console.log(prev.queryOrders);
+    //                 console.log(newOrder);
+    //                 console.log(prev.queryOrders);
 
-                    return {
-                        ...prev,
-                        queryOrders: [newOrder, ...prev.queryOrders],
-                    };
-                },
-            });
-        } catch (e) {
-            console.log(e);
-        }
-    }, [subscribeToMore]);
+    //                 return {
+    //                     ...prev,
+    //                     queryOrders: [newOrder, ...prev.queryOrders],
+    //                 };
+    //             },
+    //         });
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // }, [subscribeToMore]);
 
     return (
         <Container>
