@@ -1,7 +1,7 @@
 import { Grid, Card, makeStyles } from "@material-ui/core";
 import CounterItemsCard from "../components/CounterItemsCard";
 import { primary } from "../constants/styles";
-import Timer from "./timer";
+import Timer from "./Timer";
 
 
 const useStyles = makeStyles({
