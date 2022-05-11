@@ -56,13 +56,6 @@ const Kitchen = () => {
                         </Grid>
                     )
                 )}
-                {/* {loading ? (
-                    <p>Loading...</p>
-                ) : error ? (
-                    <p>Error ^U^</p>
-                ) : (
-                    <>data.todayOrders</>
-                )} */}
             </Grid>
         </Container>
     );
