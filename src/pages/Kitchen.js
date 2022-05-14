@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { Button, Container, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
+import { ConstructionOutlined } from "@mui/icons-material";
 import { useState, useEffect } from 'react';
 import KitchenOrderList from "../components/KitchenOrderList";
 import { SUBSCRIPTION_ORDER } from "../graphql";
@@ -24,30 +25,22 @@ const useStyles = makeStyles({
 
 const Kitchen = () => {
     const classes = useStyles();
+    const [orderList, setOrderList] = useState([])
     const { loading, error, data, subscribeToMore } = useQuery(QUERY_ORDERS, { variables: { restaurantId: "s001" } });
-
-    // useEffect(() => {
-    //     try {
-    //         subscribeToMore({
-    //             document: SUBSCRIPTION_ORDER,
-    //             variables: { restautantId: "s001" },
-    //             updateQuery: (prev, { subscriptionData }) => {
-    //                 if (!subscriptionData.data) return prev;
-    //                 const newOrder = subscriptionData.data;
-
-    //                 console.log(newOrder);
-    //                 console.log(prev.queryOrders);
-
-    //                 return {
-    //                     ...prev,
-    //                     queryOrders: [newOrder, ...prev.queryOrders],
-    //                 };
-    //             },
-    //         });
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // }, [subscribeToMore]);
+    useEffect(()=>{
+        if (!loading){
+            console.log("data.todayOrders", data.todayOrders)
+            setOrderList(data.todayOrders)
+            subscribeToMore({
+                document: SUBSCRIPTION_ORDER,
+                variables: { restaurantId: "restautantID" },
+                updateQuery: (prev, {subscriptionData})=>{
+                    console.log("subscriptionData", subscriptionData)
+                    setOrderList((prev)=>[...prev, subscriptionData.data.order.data])
+                }
+            })
+        }
+    }, [loading])
 
     return (
         <Container>
@@ -57,7 +50,7 @@ const Kitchen = () => {
                 ) : error ? (
                     <p>Error ^U^</p>
                 ) : (
-                    data.todayOrders.map(order =>
+                    orderList.map(order =>
                         <Grid key={order.id} item>
                             <KitchenOrderList order={order} />
                         </Grid>

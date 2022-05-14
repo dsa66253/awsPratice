@@ -2,26 +2,22 @@ import { gql } from '@apollo/client';
 
 // TODO: check the official gql syntax
 export const SUBSCRIPTION_ORDER = gql`
-subscription Subscription($restautantId: ID!) {
-  order(restautantID: $restautantId) {
+subscription order($restaurantId: String!) {
+  order(restaurantId: $restaurantId) {
     mutation
     data {
-      restautantID
-      tableNo
       id
-      items {
+      tableNo
+      totalPrice
+      time
+      items{
         id
         name
-        description
-        price
-        img
         orderItemInfo {
           quantity
           note
         }
       }
-      time
-      totalPrice
     }
   }
 }
