@@ -1,5 +1,5 @@
 import CounterOrderList from "../containers/CounterOrderList";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button, Grid } from "@material-ui/core";
 import { useMutation, useQuery } from "@apollo/client";
 import { QUERY_ORDERS } from "../graphql/queries";
@@ -8,7 +8,21 @@ import { CREATE_ORDER, SUBSCRIPTION_ORDER } from "../graphql";
 const Counter = () => {
     const { loading, error, data, subscribeToMore } = useQuery(QUERY_ORDERS, { variables: { restaurantId: "s001" } });
     const [addOrder] = useMutation(CREATE_ORDER);
-
+    const [orderList, setOrderList] = useState([])
+    useEffect(()=>{
+        if (!loading){
+            console.log("data.todayOrders", data.todayOrders)
+            setOrderList(data.todayOrders)
+            subscribeToMore({
+                document: SUBSCRIPTION_ORDER,
+                variables: { restaurantId: "restautantID" },
+                updateQuery: (prev, {subscriptionData})=>{
+                    console.log("subscriptionData.data.order", subscriptionData.data.order)
+                    setOrderList(subscriptionData.data.order)
+                }
+            })
+        }
+    }, [loading])
     // useEffect(() => {
     //     try {
     //         subscribeToMore({
@@ -66,7 +80,7 @@ const Counter = () => {
                 ) : error ? (
                     <p>Error ^U^</p>
                 ) : (
-                    data.todayOrders.map(order =>
+                    orderList.map(order =>
                     (<Grid item key={order.id}>
                         <CounterOrderList order={order} />
                     </Grid>))
