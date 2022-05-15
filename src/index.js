@@ -10,7 +10,7 @@ import reportWebVitals from './reportWebVitals';
 
 // Create an http link:
 const httpLink = new HttpLink({
-  uri: 'http://49e6-150-117-240-26.ngrok.io/graphql',
+  uri: 'https://49e6-150-117-240-26.ngrok.io/graphql',
   // uri: 'https://api.eatba.tk/graphql',
   // url: 'https://localhost:80/graphql'
 });

@@ -28,6 +28,18 @@ const Kitchen = () => {
     const [orderList, setOrderList] = useState([])
     const { loading, error, data, subscribeToMore } = useQuery(QUERY_ORDERS, { variables: { restaurantId: "s001" } });
     useEffect(()=>{
+        // if (!loading){
+        //     console.log("data.todayOrders", data.todayOrders)
+        //     setOrderList(data.todayOrders)
+        //     subscribeToMore({
+        //         document: SUBSCRIPTION_ORDER,
+        //         variables: { restaurantId: "restautantID" },
+        //         updateQuery: (prev, {subscriptionData})=>{
+        //             console.log("subscriptionData", subscriptionData)
+        //             setOrderList((prev)=>[...prev, subscriptionData.data.order.data])
+        //         }
+        //     })
+        // }
         if (!loading){
             console.log("data.todayOrders", data.todayOrders)
             setOrderList(data.todayOrders)
@@ -35,8 +47,8 @@ const Kitchen = () => {
                 document: SUBSCRIPTION_ORDER,
                 variables: { restaurantId: "restautantID" },
                 updateQuery: (prev, {subscriptionData})=>{
-                    console.log("subscriptionData", subscriptionData)
-                    setOrderList((prev)=>[...prev, subscriptionData.data.order.data])
+                    console.log("subscriptionData.data.order", subscriptionData.data.order)
+                    setOrderList(subscriptionData.data.order)
                 }
             })
         }

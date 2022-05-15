@@ -4,12 +4,9 @@ import { gql } from '@apollo/client';
 export const SUBSCRIPTION_ORDER = gql`
 subscription order($restaurantId: String!) {
   order(restaurantId: $restaurantId) {
-    mutation
-    data {
+
       id
       tableNo
-      totalPrice
-      time
       items{
         id
         name
@@ -18,7 +15,8 @@ subscription order($restaurantId: String!) {
           note
         }
       }
-    }
+      totalPrice
+      time
   }
 }
 `;
