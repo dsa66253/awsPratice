@@ -12,7 +12,7 @@ const AddItemCard = () => {
             // img: ""
         }
     );
-    const [uploadimage, setUploadimage] = useState("helo")
+    const [uploadimage, setUploadimage] = useState("")
 
     const [createItemAPI, { data, loading, error }] = useMutation(CREATE_ITEM);
 
@@ -21,11 +21,9 @@ const AddItemCard = () => {
     const galleryImageList = [];
 
     const createItem = async () => {
-        // console.log(values);
         // todo: connect api => create item
-        console.log("uploadimage", uploadimage)
         await createItemAPI({ variables: { data: values, file: uploadimage} });
-        // window.location.reload();
+        window.location.reload();
     }
 
     const handleChange = (prop) => (event) => {
@@ -36,11 +34,8 @@ const AddItemCard = () => {
     
     const handleImgChange = (e) =>{
         const file = e.target.files[0]
-        // console.log("file", file)
         if (!file) return
         setUploadimage(file)
-        // console.log("uploadimage", uploadimage)
-        // uploadFile( { variables: { file:file } } )
     }
 
     return (

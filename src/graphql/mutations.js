@@ -19,8 +19,8 @@ mutation Mutation($data: CreateItemInput!, $file:Upload) {
 `;
 
 export const UPDATE_ITEM = gql`
-mutation Mutation($updateItemId: String!, $data: UpdateItemInput!) {
-  updateItem(id: $updateItemId, data: $data) {
+mutation Mutation($updateItemId: String!, $data: UpdateItemInput!, $file: Upload) {
+  updateItem(id: $updateItemId, data: $data, file: $file) {
     id
     name
     price

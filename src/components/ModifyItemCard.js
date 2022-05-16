@@ -4,12 +4,12 @@ import { Delete, Edit, MoreVert } from "@material-ui/icons";
 import { valueToPercent } from "@mui/base";
 import { SaveAs } from "@mui/icons-material";
 import { useState } from "react";
-import { DELETE_ITEM, UPDATE_ITEM } from "../graphql/mutations";
+import { DELETE_ITEM, UPDATE_ITEM, UPLOAD_FILE } from "../graphql/mutations";
 
 const ModifyItemCard = ({ item }) => {
 
     const [isEditMode, setIsEditMode] = useState(false);
-
+    const [uploadImage, setUploadImage] = useState("")
     const [deleteItemAPI, { data, loading, error }] = useMutation(DELETE_ITEM);
     const [updateItemAPI, { updateData, updateLoading, updateError }] = useMutation(UPDATE_ITEM);
 
@@ -42,7 +42,7 @@ const ModifyItemCard = ({ item }) => {
     const updateItem = async () => {
 
         if (needUpdate()) {
-            await updateItemAPI({ variables: { updateItemId: item.id, data: values } });
+            await updateItemAPI({ variables: { updateItemId: item.id, data: values, file: uploadImage } });
             window.location.reload();
         } else {
             handleMode();
@@ -53,7 +53,13 @@ const ModifyItemCard = ({ item }) => {
         if (values.name !== item.name) return true;
         if (values.price !== item.price) return true;
         if (values.img !== item.img) return true;
+        if (uploadImage!=="") return true;
         return false;
+    }
+    const handleImgChange = (e) =>{
+        const file = e.target.files[0]
+        if (!file) return
+        setUploadImage(file)
     }
 
     if (isEditMode) return (
@@ -77,7 +83,8 @@ const ModifyItemCard = ({ item }) => {
                     <TextField variant="outlined" onChange={handleChange('name')} value={values.name} label="名稱" />
                 </CardContent>
                 <CardContent sx={{ flexGrow: 1 }}>
-                    <TextField variant="outlined" onChange={handleChange('img')} value={values.img} label="圖片網址" />
+                    <TextField variant="outlined" onChange={handleChange('img')} value={values.img} label="圖片ONLY png and jpeg" disabled/>
+                    <input type="file" accept="image/x-png,image/jpeg" onChange={handleImgChange}></input>
                 </CardContent>
                 <CardContent>
                     <TextField type="number" variant="outlined" onChange={handleChange('price')} value={values.price} label="價格" />
