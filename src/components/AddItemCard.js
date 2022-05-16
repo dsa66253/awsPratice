@@ -1,18 +1,18 @@
 import { useMutation } from "@apollo/client";
 import { Button, Card, CardActions, CardContent, CardMedia, Grid, TextField } from "@material-ui/core";
 import { useState } from "react";
-import { CREATE_ITEM } from "../graphql/mutations";
+import { CREATE_ITEM, UPLOAD_FILE } from "../graphql/mutations";
 import ImageUpload from "../pages/ImageUpload";
-
 const AddItemCard = () => {
-
+    const [uploadFile] = useMutation(UPLOAD_FILE)
     const [values, setValues] = useState(
         {
             name: "",
             price: 0,
-            img: ""
+            // img: ""
         }
     );
+    const [uploadimage, setUploadimage] = useState("helo")
 
     const [createItemAPI, { data, loading, error }] = useMutation(CREATE_ITEM);
 
@@ -21,10 +21,11 @@ const AddItemCard = () => {
     const galleryImageList = [];
 
     const createItem = async () => {
-        console.log(values);
+        // console.log(values);
         // todo: connect api => create item
-        await createItemAPI({ variables: { data: values } });
-        window.location.reload();
+        console.log("uploadimage", uploadimage)
+        await createItemAPI({ variables: { data: values, file: uploadimage} });
+        // window.location.reload();
     }
 
     const handleChange = (prop) => (event) => {
@@ -32,6 +33,15 @@ const AddItemCard = () => {
         if (prop === 'price') value = parseInt(value);
         setValues({ ...values, [prop]: value });
     };
+    
+    const handleImgChange = (e) =>{
+        const file = e.target.files[0]
+        // console.log("file", file)
+        if (!file) return
+        setUploadimage(file)
+        // console.log("uploadimage", uploadimage)
+        // uploadFile( { variables: { file:file } } )
+    }
 
     return (
         <Grid item xs={12} sm={6} md={4}>
@@ -50,7 +60,9 @@ const AddItemCard = () => {
                     <TextField variant="outlined" onChange={handleChange('name')} value={values.name} label="名稱" />
                 </CardContent>
                 <CardContent sx={{ flexGrow: 1 }}>
-                    <TextField variant="outlined" onChange={handleChange('img')} value={values.img} label="圖片網址" />
+                    
+                    <TextField variant="outlined" onChange={handleChange('img')} value={values.img} label="圖片ONLY png and jpeg" disabled/>
+                    <input type="file" accept="image/x-png,image/jpeg" onChange={handleImgChange}></input>
                 </CardContent>
                 <CardContent>
                     <TextField type="number" variant="outlined" onChange={handleChange('price')} value={values.price} label="價格" />

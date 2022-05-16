@@ -20,6 +20,7 @@ import { CardHeader, IconButton } from '@material-ui/core';
 import { MoreHoriz, MoreVert } from '@material-ui/icons';
 import ModifyItemCard from '../components/ModifyItemCard';
 import AddItemCard from '../components/AddItemCard';
+import { UploadImageButton } from './UploadImageButton';
 
 export default function Album() {
 
@@ -32,7 +33,7 @@ export default function Album() {
 
   useEffect(() => {
     if (data) {
-      console.log(data.items);
+      // console.log(data.items);
       setItems(data.items)
     }
   }, [data]);
@@ -45,6 +46,7 @@ export default function Album() {
 
   return (
     <ThemeProvider theme={theme}>
+      <UploadImageButton/>
       <CssBaseline />
       <main>
         <Container>
