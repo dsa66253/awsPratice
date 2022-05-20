@@ -6,23 +6,42 @@ import { QUERY_ORDERS } from "../graphql/queries";
 import { CREATE_ORDER, SUBSCRIPTION_ORDER } from "../graphql";
 
 const Counter = () => {
-    const { loading, error, data, subscribeToMore } = useQuery(QUERY_ORDERS, { variables: { restaurantId: "s001" } });
-    const [addOrder] = useMutation(CREATE_ORDER);
-    const [orderList, setOrderList] = useState([])
-    useEffect(()=>{
-        if (!loading){
-            console.log("data.todayOrders", data.todayOrders)
-            setOrderList(data.todayOrders)
-            subscribeToMore({
-                document: SUBSCRIPTION_ORDER,
-                variables: { restaurantId: "restautantID" },
-                updateQuery: (prev, {subscriptionData})=>{
-                    console.log("subscriptionData.data.order", subscriptionData.data.order)
-                    setOrderList(subscriptionData.data.order)
-                }
-            })
-        }
-    }, [loading])
+    const loading = false;
+    const error = false;
+    // const orderList = [];
+
+    const [orderList, setOrderList] = useState([]);
+
+    useEffect(() => {
+        getData();
+    }, []);
+
+    const getData = () => {
+        fetch('http://localhost:8000/orders')
+            .then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                setOrderList(data);
+                console.log(data);
+            }).catch((e) => console.log("error" + e));
+    }
+    // const { loading, error, data, subscribeToMore } = useQuery(QUERY_ORDERS, { variables: { restaurantId: "s001" } });
+    // const [addOrder] = useMutation(CREATE_ORDER);
+    // const [orderList, setOrderList] = useState([])
+    // useEffect(()=>{
+    //     if (!loading){
+    //         console.log("data.todayOrders", data.todayOrders)
+    //         setOrderList(data.todayOrders)
+    //         subscribeToMore({
+    //             document: SUBSCRIPTION_ORDER,
+    //             variables: { restaurantId: "restautantID" },
+    //             updateQuery: (prev, {subscriptionData})=>{
+    //                 console.log("subscriptionData.data.order", subscriptionData.data.order)
+    //                 setOrderList(subscriptionData.data.order)
+    //             }
+    //         })
+    //     }
+    // }, [loading])
     // useEffect(() => {
     //     try {
     //         subscribeToMore({
@@ -46,30 +65,30 @@ const Counter = () => {
     //     }
     // }, [subscribeToMore]);
 
-    const handleCreate = useCallback(
-        (e) => {
-            addOrder({
-                variables: {
-                    order: {
-                        id: "order668",
-                        tableNo: "10",
-                        totalPrice: 180,
-                        time: new Date(),
-                        items: [
-                            {
-                                id: "item888",
-                                name: "測試",
-                                price: 120,
-                                quantity: 1,
-                                note: "",
-                                status: "RAW"
-                            }
-                        ]
-                    },
-                }
-            });
-        }, [addOrder]
-    );
+    // const handleCreate = useCallback(
+    //     (e) => {
+    //         addOrder({
+    //             variables: {
+    //                 order: {
+    //                     id: "order668",
+    //                     tableNo: "10",
+    //                     totalPrice: 180,
+    //                     time: new Date(),
+    //                     items: [
+    //                         {
+    //                             id: "item888",
+    //                             name: "測試",
+    //                             price: 120,
+    //                             quantity: 1,
+    //                             note: "",
+    //                             status: "RAW"
+    //                         }
+    //                     ]
+    //                 },
+    //             }
+    //         });
+    //     }, [addOrder]
+    // );
 
     return (
         <div>

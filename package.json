@@ -9,6 +9,7 @@
     "@emotion/styled": "^11.8.1",
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
+    "@mui/base": "^5.0.0-alpha.76",
     "@mui/icons-material": "^5.6.2",
     "@mui/material": "^5.6.3",
     "@testing-library/jest-dom": "^5.16.3",
@@ -22,13 +23,14 @@
     "json-server": "^0.17.0",
     "react": "^18.0.0",
     "react-apollo": "^3.1.5",
+    "react-bootstrap": "^2.4.0",
     "react-dom": "^18.0.0",
     "react-image-upload": "^2.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "5.0.0",
+    "styled-components": "^5.3.5",
     "subscriptions-transport-ws": "^0.11.0",
-    "web-vitals": "^2.1.4",
-    "@mui/base": "^5.0.0-alpha.76"
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
