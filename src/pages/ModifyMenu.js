@@ -20,6 +20,7 @@ import { CardHeader, IconButton } from '@material-ui/core';
 import { MoreHoriz, MoreVert } from '@material-ui/icons';
 import ModifyItemCard from '../components/ModifyItemCard';
 import AddItemCard from '../components/AddItemCard';
+import { UploadImageButton } from './UploadImageButton';
 
 export default function Album() {
 
@@ -29,29 +30,10 @@ export default function Album() {
   const galleryImageList = [];
 
   useEffect(() => {
-    getData();
-  }, []);
-
-  const loading = false;
-  const error = false;
-  const getData = () => {
-    fetch('http://localhost:8001/items')
-      .then(function (response) {
-        return response.json();
-      }).then(function (data) {
-        setItems(data);
-        console.log(data);
-      }).catch(() => console.log("error"));
-  }
-
-  // const { loading, error, data } = useQuery(QUERY_ITEMS, { variables: { restaurantId: "S001" } });
-
-  // useEffect(() => {
-  //   if (data) {
-  //     console.log(data.items);
-  //     setItems(data.items)
-  //   }
-  // }, [data]);
+    if (data) {
+      setItems(data.items)
+    }
+  }, [data]);
 
   const add = [1]; //新增餐點那格
 
@@ -61,6 +43,7 @@ export default function Album() {
 
   return (
     <ThemeProvider theme={theme}>
+      <UploadImageButton/>
       <CssBaseline />
       <main>
         <Container>

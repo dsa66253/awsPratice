@@ -7,8 +7,8 @@ mutation CreateOrder($order: inputOrder) {
 `;
 
 export const CREATE_ITEM = gql`
-mutation Mutation($data: CreateItemInput!) {
-  createItem(data: $data) {
+mutation Mutation($data: CreateItemInput!, $file:Upload) {
+  createItem(data: $data, file: $file) {
     id
     name
     description
@@ -19,8 +19,8 @@ mutation Mutation($data: CreateItemInput!) {
 `;
 
 export const UPDATE_ITEM = gql`
-mutation Mutation($updateItemId: String!, $data: UpdateItemInput!) {
-  updateItem(id: $updateItemId, data: $data) {
+mutation Mutation($updateItemId: String!, $data: UpdateItemInput!, $file: Upload) {
+  updateItem(id: $updateItemId, data: $data, file: $file) {
     id
     name
     price
@@ -38,3 +38,11 @@ mutation DeleteItem($deleteItemId: String!) {
   }
 }
 `;
+
+export const UPLOAD_FILE = gql`
+    mutation singleUpload($file: Upload!){
+        singleUpload(file: $file){
+            url
+        }
+    }
+`
