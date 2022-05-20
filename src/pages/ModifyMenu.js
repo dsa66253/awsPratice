@@ -29,11 +29,8 @@ export default function Album() {
   const theme = createTheme();
   const galleryImageList = [];
 
-  const { loading, error, data } = useQuery(QUERY_ITEMS, { variables: { restaurantId: "S001" } });
-
   useEffect(() => {
     if (data) {
-      // console.log(data.items);
       setItems(data.items)
     }
   }, [data]);

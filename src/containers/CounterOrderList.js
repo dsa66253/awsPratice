@@ -14,8 +14,7 @@ const useStyles = makeStyles({
         minHeight: '10vh',
         fontSize: 20,
         fontWeight: 'bold',
-        borderTop: '1px solid',
-        // background: primary,
+        border: '1px solid rgba(0,0,0,0.1)',
     },
     itemsCard: {
         minHeight: '15%',
@@ -24,9 +23,8 @@ const useStyles = makeStyles({
         alignItems: 'center',
         justifyContent: 'start',
         padding: '10px',
-        borderTop: '1px solid',
-        // background: '#02C874',
-    }
+        border: '1px solid rgba(0,0,0,0.1)',
+    },
 });
 
 const CounterOrderList = ({ order }) => {

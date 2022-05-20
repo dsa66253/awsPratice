@@ -9,7 +9,7 @@ const useStyles = makeStyles({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        fontSize: 20,
+        fontSize: 15,
         fontWeight: 'bold',
     },
     tableNo: {

@@ -5,44 +5,65 @@ import { format } from "date-fns";
 import React from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import { primary, opposite, oppositeLight, secondary } from "../constants/styles";
-const drawerWidth = 200;
+import styled from 'styled-components'
+import { lightTheme } from "../styles/theme";
+import Profile from "./Profile";
+import ToggleSwitch from "./ToggleSwitch";
+import { Switch } from "@mui/material";
+import { Brightness6, Light, Lightbulb } from "@mui/icons-material";
 
+const drawerWidth = 200;
+const quickOrderIcon = require('../assets/icon.png');
 const useStyles = makeStyles((theme) => {
     return {
         page: {
-            background: "#FFC8B4",
+            background: lightTheme.primary,
             width: '100%',
+            height: `calc(100% - 70px)`,
             padding: theme.spacing(3)
         },
         drawer: {
             width: drawerWidth,
-            background: primary
+            background: lightTheme.secondary
         },
         drawerPaper: {
+            // alignItems: "center",
+            // justifyContent: "center",
             width: drawerWidth,
-            background: primary
+            background: lightTheme.secondary
         },
         root: {
             display: 'flex'
         },
         active: {
-            background: secondary,
-            // '&:hover': {
-            //     background: primary,
-            // }
+            '&:hover': {
+                background: "rgba(0,0,0,0.1)"
+            },
+            width: "100%",
+            borderLeft: "4px solid",
+            paddingLeft: "2rem",
+            cursor: "pointer",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            marginBottom: "1rem",
+            transition: "0.2s all ease-in-out",
         },
         deactive: {
-            background: primary,
-            '&:hover': {
-                background: "#FFC8B4",
-            }
+            color: "rgba(0,0,0,0.3)"
+        },
+        profile: {
+            // position: "absolute",
+            textAlign: "center",
         },
         title: {
             padding: theme.spacing(2)
         },
         appbar: {
             width: `calc(100% - ${drawerWidth}px)`,
-            background: 'linear-gradient(45deg, #FE688B, #FF8E53)'
+            background: "rgba(224,224,224,1)",
+            // height: '70px',
+            position: 'fixed'
         },
         toolbar: theme.mixins.toolbar,
         quote: {
@@ -51,9 +72,20 @@ const useStyles = makeStyles((theme) => {
         },
         user: {
             fontSize: 20,
-        }
+        },
+        restaurantIcon: {
+            height: "2rem",
+            marginRight: "20px",
+            borderRadius: "50px",
+        },
+        // mode: {
+        //     height: '50px',
+        //     marginTop: '100%',
+        // },
     }
 });
+
+
 
 
 const Layout = ({ children }) => {
@@ -63,17 +95,17 @@ const Layout = ({ children }) => {
 
     const menuItems = [
         {
-            text: '訂單(kitchen)',
+            text: '廚房訂單',
             icon: <ListAlt />,
             path: '/'
         },
         {
-            text: '訂單(Counter)',
+            text: '櫃檯訂單',
             icon: <RestaurantSharp />,
             path: '/counter'
         },
         {
-            text: '改菜單',
+            text: '更新菜單',
             icon: <RestaurantMenuSharp />,
             path: '/modify-menu'
         }
@@ -89,6 +121,7 @@ const Layout = ({ children }) => {
                     <Typography className={classes.quote}>
                         顧客永遠是對的，就算是大爛客也一樣
                     </Typography>
+                    <img className={classes.restaurantIcon} src={quickOrderIcon} alt="icon" />
                     <Typography className={classes.user}>
                         ＯＯ餐廳
                     </Typography>
@@ -100,12 +133,8 @@ const Layout = ({ children }) => {
                 anchor="left"
                 classes={{ paper: classes.drawerPaper }}
             >
-                <div>
-                    <Typography variant="h5" align="center" className={classes.title}>
-                        快點
-                    </Typography>
-                </div>
-                <List>
+                <Profile img={quickOrderIcon} name="Quick Order" className={classes.profile} />
+                <List className={classes.menu}>
                     {menuItems.map(item => (
                         <ListItem
                             button
@@ -119,7 +148,13 @@ const Layout = ({ children }) => {
                             <ListItemText primary={item.text} />
                         </ListItem>
                     ))}
+
                 </List>
+                {/* 
+                <div className={classes.mode}>
+                    <ListItemIcon><Brightness6 /></ListItemIcon>
+                    <Switch defaultChecked />
+                </div> */}
             </Drawer>
             <div className={classes.page}>
                 <div className={classes.toolbar}>

@@ -13,13 +13,12 @@ import {createUploadLink} from "apollo-upload-client"
 const httpLink = new HttpLink({
   uri: 'https://49e6-150-117-240-26.ngrok.io/graphql',
   // uri: 'https://api.eatba.tk/graphql',
-  // url: 'https://localhost:80/graphql'
 });
 
 // Create a WebSocket link:
 const wsLink = new WebSocketLink({
-  uri: `ws://49e6-150-117-240-26.ngrok.io/graphql`,
-  // uri: 'ws://api.eatbba.tk/graphql',
+  // uri: `ws://49e6-150-117-240-26.ngrok.io/graphql`,
+  uri: 'ws://api.eatba.tk/graphql',
   options: { reconnect: true },
 });
 // create upload link for uploading image purpose
